@@ -1,10 +1,17 @@
 <template>
   <base-container>
     <h2>Active Users</h2>
-    <base-search @search="updateSearch" :search-term="enteredSearchTerm"></base-search>
+    <base-search
+      @search="updateSearch"
+      :search-term="enteredSearchTerm"
+    ></base-search>
     <div>
-      <button @click="sort('asc')" :class="{selected: sorting === 'asc'}">Sort Ascending</button>
-      <button @click="sort('desc')" :class="{selected: sorting === 'desc'}">Sort Descending</button>
+      <button @click="sort('asc')" :class="{ selected: sorting === 'asc' }">
+        Sort Ascending
+      </button>
+      <button @click="sort('desc')" :class="{ selected: sorting === 'desc' }">
+        Sort Descending
+      </button>
     </div>
     <ul>
       <user-item
@@ -23,26 +30,29 @@ import UserItem from './UserItem.vue';
 
 export default {
   components: {
-    UserItem,
+    UserItem
   },
   props: ['users'],
   data() {
     return {
       enteredSearchTerm: '',
       activeSearchTerm: '',
-      sorting: null,
+      sorting: null
     };
   },
   computed: {
     availableUsers() {
       let users = [];
       if (this.activeSearchTerm) {
-        users = this.users.filter((usr) =>
+        users = this.users.filter(usr =>
           usr.fullName.includes(this.activeSearchTerm)
         );
       } else if (this.users) {
         users = this.users;
       }
+      console.log('test 1');
+      console.log('test 2');
+      console.log('test 3');
       return users;
     },
     displayedUsers() {
@@ -60,7 +70,7 @@ export default {
           return 1;
         }
       });
-    },
+    }
   },
   methods: {
     updateSearch(val) {
@@ -68,7 +78,7 @@ export default {
     },
     sort(mode) {
       this.sorting = mode;
-    },
+    }
   },
   watch: {
     enteredSearchTerm(val) {
@@ -78,7 +88,7 @@ export default {
         }
       }, 300);
     }
-  },
+  }
 };
 </script>
 
